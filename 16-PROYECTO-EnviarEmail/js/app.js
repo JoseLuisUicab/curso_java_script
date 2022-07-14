@@ -43,77 +43,78 @@ function validarformulario(e) {
     e.target.classList.add("border", "border-red-500");
     mostrarerror("todos campos son obligatorios");
   }
-  if (e.target.type == "email") {
+  if (e.target.type === "email") {
     if (reg.test(e.target.value)) {
       const error = document.querySelector("p.error");
       if (error) {
         error.remove();
-      e.target.classList.remove("border", "border-red-500");
-      e.target.classList.add("border", "border-green-500");
-    } else {
-      e.target.classList.remove("border", "border-green-500");
-      e.target.classList.add("border", "border-red-500");
-      mostrarerror("email no valido");
+        e.target.classList.remove("border", "border-red-500");
+        e.target.classList.add("border", "border-green-500");
+      } else {
+        e.target.classList.remove("border", "border-green-500");
+        e.target.classList.add("border", "border-red-500");
+        mostrarerror("email no valido");
+      }
+    }
+
+    if (
+      reg.test(email.value) !== "" &&
+      asunto.value !== "" &&
+      mensaje.value !== ""
+    ) {
+      btnenviar.disabled = false;
+      btnenviar.classList.remove("cursor-not-allowed", "opacity-50");
+    }
+  }
+  function mostrarerror(mensaje) {
+    const mensajeE = document.createElement("p");
+    mensajeE.textContent = mensaje;
+    mensajeE.classList.add(
+      "border",
+      "border-red-500",
+      "background-red-100",
+      "text-red-500",
+      "p-3",
+      "mt-5",
+      "text-center",
+      "error"
+    );
+
+    const er = document.querySelectorAll(".error");
+    if (er.length === 0) {
+      formulario.appendChild(mensajeE);
     }
   }
 
-  if (
-    reg.test(email.value) !== "" &&
-    asunto.value !== "" &&
-    mensaje.value !== ""
-  ) {
-    btnenviar.disabled = false;
-    btnenviar.classList.remove("cursor-not-allowed", "opacity-50");
-  }
-}
-function mostrarerror(mensaje) {
-  const mensajeE = document.createElement("p");
-  mensajeE.textContent = mensaje;
-  mensajeE.classList.add(
-    "border",
-    "border-red-500",
-    "background-red-100",
-    "text-red-500",
-    "p-3",
-    "mt-5",
-    "text-center",
-    "error"
-  );
+  function enviarFormua(e) {
+    e.preventDefault();
+    const spinner = document.querySelector("#spinner");
+    spinner.style.display = "flex";
 
-  const er = document.querySelectorAll(".error");
-  if (er.length === 0) {
-    formulario.appendChild(mensajeE);
-  }
-}
-
-function enviarFormua(e) {
-  e.preventDefault();
-  const spinner = document.querySelector("#spinner");
-  spinner.style.display = "flex";
-
-  // despues de 3 segundos ocultar spinner para
-  setTimeout(() => {
-    spinner.style.display = "none";
-    const parrafo = document.createElement("p");
-    parrafo.textContent = "mensaje enviado correctamente";
-    parrafo.classList.add(
-      "text-center",
-      "my-10",
-      "p-2",
-      "bg-green-500",
-      "text-white",
-      "font-bold",
-      "uppercase"
-    );
-    formulario.insertBefore(parrafo, spinner);
+    // despues de 3 segundos ocultar spinner para
     setTimeout(() => {
-      parrafo.remove();
-      resetar();
-    }, 5000);
-  }, 3000);
-}
+      spinner.style.display = "none";
+      const parrafo = document.createElement("p");
+      parrafo.textContent = "mensaje enviado correctamente";
+      parrafo.classList.add(
+        "text-center",
+        "my-10",
+        "p-2",
+        "bg-green-500",
+        "text-white",
+        "font-bold",
+        "uppercase"
+      );
+      formulario.insertBefore(parrafo, spinner);
+      setTimeout(() => {
+        parrafo.remove();
+        resetar();
+      }, 5000);
+    }, 3000);
+  }
 
-function resetar(params) {
-  formulario.reset();
-  iniciar();
+  function resetar(params) {
+    formulario.reset();
+    iniciar();
+  }
 }
