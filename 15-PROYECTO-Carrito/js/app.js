@@ -29,8 +29,52 @@ function leerProducto(curso) {
     id: curso.querySelector("a").getAttribute("data-id"),
     cantidad: 1,
   };
+
+  // revisa si un elemento existe en el carrito
+  const existe = articulos.some((curso) => curso.id === informacion.id);
+  if (existe) {
+    const cursos = articulos.map((curso) => {
+      if (curso.id === informacion.id) {
+        curso.cantidad++;
+        return curso;
+      } else {
+        return curso;
+      }
+    });
+    articulos = [...cursos];
+  } else {
+    articulos = [...articulos, informacion];
+  }
   // agregar elementos al carrito
-  articulos = [...articulos, informa];
+
+  carritoHTML();
 }
 
-// leer contenido del html para extrar la informacion
+// muestra la informacion en el carrito de compra
+
+function carritoHTML(params) {
+  // limpiamos el HTML
+  limpiarHTML();
+  articulos.array.forEach(curso => {
+    const { imagen, titulo, precio, cantidad, id } = curso;
+    const row = document.createElement("tr");
+    row.innerHTML = `
+    <td>
+    <img src="${imagen}" width="100">
+    </td>
+    <td>${titulo}</td>
+    <td>${precio}</td>
+    <td>${cantidad}</td>
+    <td><a href="#" class="borrar-curso" data-id="${id}">X</a></td>
+    `;
+    contenedorcarrito.appendChild(row);
+  });
+}
+
+// eleimia los curso del tbody
+function limpiarHTML(params) {
+  //contenedorcarrito.innerHTML = "";
+  while (contenedorcarrito.firstChild) {
+    contenedorcarrito.removeChild(contenedorcarrito.firstChild);
+  }
+}
