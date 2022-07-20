@@ -1,8 +1,6 @@
 // Veamos algunos ejemeplos de LocalStorage...
 
 // Local Storage funciona con una especie de Llave valor...
-
-
 localStorage.setItem('nombre', 'Juan');
 
 // añadir algo a sessionstorage

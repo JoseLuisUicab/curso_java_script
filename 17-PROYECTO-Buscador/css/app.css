@@ -12,7 +12,7 @@ h1 {
     margin: 0;
 }
 .contenedor {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     max-width: 1200px;
     margin: 0 auto;
 }

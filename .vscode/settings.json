@@ -1,5 +1,6 @@
 {
   "editor.cursorBlinking": "blink",
   "editor.guides.bracketPairs": "active",
-  "editor.bracketPairColorization.independentColorPoolPerBracketType": true
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "files.autoSave": "afterDelay"
 }
